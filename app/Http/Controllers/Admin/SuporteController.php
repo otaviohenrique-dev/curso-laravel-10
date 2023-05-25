@@ -16,4 +16,21 @@ class SuporteController extends Controller
     public function create (){
         return view('admin/supports/create');
     }
+
+    public function store (Request $request, Support $support){
+        $data = $request->all();
+        $data['status'] = 'a';
+        $support->create($data);
+        return redirect(route('supports.index'));
+    
+    }
+
+    public function show (string|int $id){
+        if(!$suporte = Support::find($id)){
+            return back();
+        }
+        return view('admin/supports/show', compact('suporte'));
+    }
+
+
 }
